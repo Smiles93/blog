@@ -7,7 +7,6 @@ import Footer from "$components/Footer.astro";
 import { Image } from "astro:assets";
 import FormattedDate from "$components/FormattedDate.astro";
 import { getBlogPosts } from "src/utils";
-import BlueskyLikes from "$components/bluesky/BlueskyLikes.astro";
 import Tag from "$components/Tag.astro";
 import { SHOW_IMAGES } from "../../config.ts";
 
@@ -61,10 +60,6 @@ if (replacedHero && !images[replacedHero])
       <h1 class="mt-4">{post.data.title}</h1>
       <Content />
 
-      <BlueskyLikes
-        disableLikes={post.data.disableLikes}
-        disableComments={post.data.disableComments}
-      />
     </BlogPost>
   </main>
   <Footer />
