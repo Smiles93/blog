@@ -8,7 +8,7 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import svelte from "@astrojs/svelte";
-import { pagefind } from "vite-plugin-pagefind";
+import pagefind from "astro-pagefind";
 
 import { BASE, SITE } from "./src/config.ts";
 
@@ -35,15 +35,6 @@ export default defineConfig({
         $content: resolve("./src/content"),
       },
     },
-    ssr: {
-      noExternal: [BASE + "/pagefind/pagefind.js"],
-    },
-    plugins: [pagefind()],
-    build: {
-      rollupOptions: {
-        external: [BASE + "/pagefind/pagefind.js"],
-      },
-    },
   },
 
   integrations: [
@@ -54,6 +45,7 @@ export default defineConfig({
     sitemap(),
     tailwind(),
     svelte(),
+    pagefind(),
   ],
 
   markdown: {

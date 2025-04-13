@@ -2,7 +2,6 @@
   import { BASE } from "../../config.ts";
 
   import { fade, slide } from "svelte/transition";
-  import type { Pagefind } from "vite-plugin-pagefind/types";
   import { showSearch } from "./CommandPaletteStore";
 
   export let showResults = true;
@@ -26,7 +25,7 @@
   let search = async () => {
     if (value.trim() == "") return;
 
-    const search = await pagefind.debouncedSearch(value);
+    const search = await window.pagefind.search(value);
     if (!search) return;
 
     showResults = true;
@@ -63,20 +62,6 @@
       input.focus();
     }, 200);
   };
-
-  let pagefind: Pagefind;
-  async function setupSearch() {
-    try {
-      // @ts-ignore
-      pagefind = await import(/* @vite-ignore */
-        BASE + "/pagefind/pagefind.js"
-      );
-    } catch (error) {
-      console.error("Pagefind module not found, will retry after build");
-    }
-  }
-
-  setupSearch();
 
   let input: HTMLInputElement;
 
