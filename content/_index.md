@@ -1,9 +1,8 @@
 ---
-title: My Site
-toc: false
+title: til & tales
+toc: False
 ---
 
-This is the landing page.
 
 ## Explore
 
