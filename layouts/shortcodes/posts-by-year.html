@@ -1,0 +1,21 @@
+{{- $pages := where .Site.RegularPages "Section" "blog" -}}
+{{- $pages = sort $pages "Date" "desc" -}}
+
+<div class="hx-mt-6">
+  {{- range $pages.GroupByDate "2006" -}}
+    <h2 class="hx-mt-8 hx-text-2xl hx-font-semibold">{{ .Key }}</h2>
+    <div class="hx-mt-4 hx-space-y-6">
+      {{- range .Pages -}}
+        <article>
+          <h3 class="hx-text-lg hx-font-semibold">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </h3>
+          {{- $summary := .Params.summary | default .Summary -}}
+          {{- if $summary -}}
+            <p class="hx-mt-1 hx-text-sm">{{ $summary | plainify }}</p>
+          {{- end -}}
+        </article>
+      {{- end -}}
+    </div>
+  {{- end -}}
+</div>
