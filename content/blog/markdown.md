@@ -1,7 +1,7 @@
 ---
 title: "Markdown Syntax Guide"
 date: "2020-01-01"
-tags: ["Markdown", "Example", "Guide"]
+tags: ["Markdown", "Example", "Guide!!!"]
 ---
 
 This article offers a sample of basic Markdown syntax that can be used in Hugo content files.
