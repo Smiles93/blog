@@ -5,3 +5,7 @@ resources/
 
 # Editor
 .vscode/
+node_modules/
+.astro/
+dist/
+.DS_Store

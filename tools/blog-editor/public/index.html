@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blog Editor</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">Blog Editor</div>
+      <div id="modeInfo" class="subtle">Local Markdown editor</div>
+    </header>
+
+    <main class="layout">
+      <section class="panel editor">
+        <div class="row">
+          <label class="field">
+            <span>Existing Post</span>
+            <select id="postSelect">
+              <option value="">New post</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="row">
+          <label class="field">
+            <span>Title</span>
+            <input id="title" type="text" placeholder="Post title" />
+          </label>
+        </div>
+
+        <div class="row split">
+          <label class="field">
+            <span>Slug</span>
+            <input id="slug" type="text" placeholder="post-title" />
+          </label>
+          <label class="field">
+            <span>Date</span>
+            <input id="date" type="date" />
+          </label>
+        </div>
+
+        <div class="row">
+          <label class="field">
+            <span>Summary</span>
+            <textarea id="summary" rows="2" placeholder="Optional summary (used in lists/search)"></textarea>
+          </label>
+        </div>
+
+        <div class="row">
+          <label class="field">
+            <span>Tags</span>
+            <input id="tags" type="text" placeholder="tag-one, tag-two" />
+          </label>
+        </div>
+
+        <div class="row flags">
+          <label class="checkbox">
+            <input id="draft" type="checkbox" />
+            Draft (not published)
+          </label>
+        </div>
+
+        <div class="row">
+          <label class="field">
+            <span>Markdown</span>
+            <textarea id="content" class="editor-area" placeholder="Write your post in markdown..."></textarea>
+          </label>
+        </div>
+
+        <div class="row">
+          <label class="field">
+            <span>Commit Message</span>
+            <input id="commitMessage" type="text" placeholder="post: my-title" />
+          </label>
+        </div>
+
+        <div class="actions">
+          <button id="save">Save Draft</button>
+          <button id="post" class="primary">Post (Commit + Push)</button>
+        </div>
+
+        <div id="status" class="status"></div>
+      </section>
+
+      <section class="panel preview">
+        <div class="preview-header">
+          <div id="previewTitle" class="preview-title">Untitled</div>
+          <div id="previewMeta" class="preview-meta"></div>
+        </div>
+        <article id="previewBody" class="prose"></article>
+      </section>
+    </main>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
