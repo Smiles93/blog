@@ -7,7 +7,7 @@ const slugInput = $("#slug");
 const dateInput = $("#date");
 const summaryInput = $("#summary");
 const tagsInput = $("#tags");
-const kindInput = $("#kind");
+const postTypeInput = $("#postType");
 const draftInput = $("#draft");
 const contentInput = $("#content");
 const commitInput = $("#commitMessage");
@@ -88,7 +88,7 @@ function collectPayload() {
     .split(",")
     .map((tag) => tag.trim())
     .filter(Boolean);
-  const kind = kindInput.value.trim();
+  const postType = postTypeInput.value.trim();
 
   return {
     title,
@@ -96,7 +96,7 @@ function collectPayload() {
     slug,
     date,
     tags,
-    kind,
+    postType,
     draft: draftInput.checked,
     content: contentInput.value,
     commitMessage: commitInput.value.trim(),
@@ -178,7 +178,7 @@ async function loadPost(file) {
   summaryInput.value = data.summary || "";
   dateInput.value = data.date || today;
   tagsInput.value = (data.tags || []).join(", ");
-  kindInput.value = data.kind || "";
+  postTypeInput.value = data.postType || "";
   draftInput.checked = !!data.draft;
   contentInput.value = content;
 
@@ -205,7 +205,7 @@ commitInput.addEventListener("input", () => {
 
 summaryInput.addEventListener("input", schedulePreview);
 tagsInput.addEventListener("input", schedulePreview);
-kindInput.addEventListener("change", schedulePreview);
+postTypeInput.addEventListener("change", schedulePreview);
 dateInput.addEventListener("input", schedulePreview);
 draftInput.addEventListener("change", schedulePreview);
 contentInput.addEventListener("input", schedulePreview);
@@ -218,7 +218,7 @@ postSelect.addEventListener("change", (event) => {
     titleInput.value = "";
     summaryInput.value = "";
     tagsInput.value = "";
-    kindInput.value = "";
+    postTypeInput.value = "";
     draftInput.checked = false;
     contentInput.value = "";
     dateInput.value = today;

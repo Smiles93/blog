@@ -2,7 +2,7 @@
 title: "Markdown Syntax Guide"
 date: "2020-01-01"
 tags: ["Markdown", "Example", "Guide!!!"]
-kind: "til"
+postType: "til"
 ---
 
 This article offers a sample of basic Markdown syntax that can be used in Hugo content files. hello
