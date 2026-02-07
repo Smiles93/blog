@@ -1,21 +1,11 @@
 ---
-title: Markdown Syntax Guide
-date: 2020-01-01
-authors:
-  - name: imfing
-    link: https://github.com/imfing
-    image: https://github.com/imfing.png
-  - name: Octocat
-    link: https://github.com/octocat
-    image: https://github.com/octocat.png
-tags:
-  - Markdown
-  - Example
-  - Guide
-excludeSearch: true
+title: "Markdown Syntax Guide"
+date: "2020-01-01"
+tags: ["Markdown", "Example", "Guide"]
 ---
 
 This article offers a sample of basic Markdown syntax that can be used in Hugo content files.
+HELLO
 <!--more-->
 
 ## Basic Syntax
@@ -155,3 +145,4 @@ func main() {
 
 - [Markdown Syntax](https://www.markdownguide.org/basic-syntax/)
 - [Hugo Markdown](https://gohugo.io/content-management/formats/#markdown)
+
