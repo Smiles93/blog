@@ -96,6 +96,7 @@ function buildAstroFrontmatter(data) {
   if (data.tags?.length) {
     lines.push(`tags: [${data.tags.map(yamlString).join(", ")}]`);
   }
+  if (data.kind) lines.push(`kind: ${yamlString(data.kind)}`);
   if (data.draft === true) lines.push("published: false");
   lines.push("---");
   return lines.join("\n");
@@ -109,6 +110,7 @@ function buildHugoFrontmatter(data) {
   if (data.tags?.length) {
     lines.push(`tags: [${data.tags.map(yamlString).join(", ")}]`);
   }
+  if (data.kind) lines.push(`kind: ${yamlString(data.kind)}`);
   if (data.draft === true) lines.push("draft: true");
   lines.push("---");
   return lines.join("\n");
@@ -220,6 +222,7 @@ async function handleApi(req, res, url) {
             summary: summaryValue || "",
             date: parseDate(dateValue),
             tags: parsed.data.tags || [],
+            kind: parsed.data.kind || "",
             draft: draftValue,
           },
           content: parsed.content.trimStart(),
@@ -259,6 +262,7 @@ async function handleApi(req, res, url) {
       summary: body.summary || "",
       date: body.date,
       tags: body.tags || [],
+      kind: body.kind || "",
       draft: body.draft === true,
     });
 

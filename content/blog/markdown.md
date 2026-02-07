@@ -2,6 +2,7 @@
 title: "Markdown Syntax Guide"
 date: "2020-01-01"
 tags: ["Markdown", "Example", "Guide!!!"]
+kind: "til"
 ---
 
 This article offers a sample of basic Markdown syntax that can be used in Hugo content files. hello
@@ -145,4 +146,3 @@ func main() {
 
 - [Markdown Syntax](https://www.markdownguide.org/basic-syntax/)
 - [Hugo Markdown](https://gohugo.io/content-management/formats/#markdown)
-

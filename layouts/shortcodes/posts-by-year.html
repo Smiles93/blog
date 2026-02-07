@@ -1,21 +1,146 @@
 {{- $pages := where .Site.RegularPages "Section" "blog" -}}
 {{- $pages = sort $pages "Date" "desc" -}}
 
-<div class="hx-mt-6">
+<div class="posts-by-year js-posts-by-year">
+  <div class="posts-filter">
+    <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">All</button>
+    <button type="button" class="filter-btn" data-filter="til" aria-pressed="false">
+      <span class="filter-icon">til</span>
+    </button>
+    <button type="button" class="filter-btn" data-filter="tales" aria-pressed="false">
+      <span class="filter-icon">tales</span>
+    </button>
+  </div>
+
   {{- range $pages.GroupByDate "2006" -}}
-    <h2 class="hx-mt-8 hx-text-2xl hx-font-semibold">{{ .Key }}</h2>
-    <div class="hx-mt-4 hx-space-y-6">
-      {{- range .Pages -}}
-        <article>
-          <h3 class="hx-text-lg hx-font-semibold">
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          </h3>
-          {{- $summary := .Params.summary | default .Summary -}}
-          {{- if $summary -}}
-            <p class="hx-mt-1 hx-text-sm">{{ $summary | plainify }}</p>
+    <section class="posts-year" data-year="{{ .Key }}">
+      <h2 class="posts-year-title">{{ .Key }}</h2>
+      <div class="posts-list">
+        {{- range .Pages -}}
+          {{- $kind := .Params.kind | default "" -}}
+          {{- if not $kind -}}
+            {{- with .Params.tags -}}
+              {{- range . -}}
+                {{- $tag := lower . -}}
+                {{- if or (eq $tag "til") (eq $tag "tales") -}}
+                  {{- $kind = $tag -}}
+                {{- end -}}
+              {{- end -}}
+            {{- end -}}
           {{- end -}}
-        </article>
-      {{- end -}}
-    </div>
+          <article data-kind="{{ $kind }}">
+            <h3 class="posts-title">
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </h3>
+            {{- $summary := .Params.summary | default .Summary -}}
+            {{- if $summary -}}
+              <p class="posts-summary">{{ $summary | plainify }}</p>
+            {{- end -}}
+          </article>
+        {{- end -}}
+      </div>
+    </section>
   {{- end -}}
 </div>
+
+<style>
+  .posts-by-year {
+    margin-top: 1.5rem;
+  }
+
+  .posts-filter {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .filter-btn {
+    border: 1px solid currentColor;
+    background: transparent;
+    color: inherit;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .filter-btn.is-active {
+    background: currentColor;
+    color: #fff;
+  }
+
+  .filter-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .posts-year-title {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .posts-list {
+    margin-top: 1rem;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .posts-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .posts-summary {
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+  }
+</style>
+
+<script>
+  (() => {
+    const containers = document.querySelectorAll(".js-posts-by-year");
+    containers.forEach((container) => {
+      const buttons = container.querySelectorAll("[data-filter]");
+      const groups = container.querySelectorAll(".posts-year");
+
+      const setActive = (activeButton) => {
+        buttons.forEach((button) => {
+          const isActive = button === activeButton;
+          button.classList.toggle("is-active", isActive);
+          button.setAttribute("aria-pressed", isActive ? "true" : "false");
+        });
+      };
+
+      const applyFilter = (filter) => {
+        groups.forEach((group) => {
+          const items = group.querySelectorAll("article");
+          let visible = 0;
+          items.forEach((item) => {
+            const kind = item.dataset.kind || "";
+            const show = filter === "all" || kind === filter;
+            item.style.display = show ? "" : "none";
+            if (show) visible += 1;
+          });
+          group.style.display = visible ? "" : "none";
+        });
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          setActive(button);
+          applyFilter(button.dataset.filter);
+        });
+      });
+
+      applyFilter("all");
+    });
+  })();
+</script>
