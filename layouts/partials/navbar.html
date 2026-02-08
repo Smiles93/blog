@@ -59,7 +59,7 @@
             <span class="hx-text-center">{{ or (T .Identifier) .Name | safeHTML }}</span>
           </a>
           {{- if eq .Name "Posts" -}}
-            <span class="hx-hidden md:hx-inline-flex hx-items-center">
+            <span class="hx-inline-flex hx-items-center">
               {{- partial "theme-toggle.html" (dict "hideLabel" true "Site" $currentPage.Site) -}}
             </span>
           {{- end -}}
