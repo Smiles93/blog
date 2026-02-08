@@ -50,6 +50,11 @@
         {{- else -}}
           {{- $active := or ($currentPage.HasMenuCurrent "main" .) ($currentPage.IsMenuCurrent "main" .) -}}
           {{- $activeClass := cond $active "hx-font-medium" "hx-text-gray-600 hover:hx-text-gray-800 dark:hx-text-gray-400 dark:hover:hx-text-gray-200" -}}
+          {{- if eq .Name "Posts" -}}
+            <span class="hx-hidden md:hx-inline-flex hx-items-center">
+              {{- partial "theme-toggle.html" (dict "hideLabel" true "Site" $currentPage.Site) -}}
+            </span>
+          {{- end -}}
           <a
             title="{{ or (T .Identifier) .Name | safeHTML }}"
             href="{{ $link }}"
@@ -58,11 +63,6 @@
           >
             <span class="hx-text-center">{{ or (T .Identifier) .Name | safeHTML }}</span>
           </a>
-          {{- if eq .Name "Posts" -}}
-            <span class="hx-inline-flex hx-items-center">
-              {{- partial "theme-toggle.html" (dict "hideLabel" true "Site" $currentPage.Site) -}}
-            </span>
-          {{- end -}}
         {{- end -}}
       {{- end -}}
     {{- end -}}
