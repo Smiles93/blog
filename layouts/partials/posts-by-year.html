@@ -32,14 +32,15 @@
             <h3 class="posts-title">
               <a href="{{ .RelPermalink }}">{{ .Title }}</a>
             </h3>
-            {{- $summary := .Params.summary | default .Summary -}}
-            {{- if $summary -}}
-              <p class="posts-summary">{{ $summary | plainify }}</p>
-            {{- end -}}
-          </article>
-        {{- end -}}
-      </div>
-    </section>
+          {{- $summary := .Params.summary | default .Summary -}}
+          {{- if $summary -}}
+            <p class="posts-summary">{{ $summary | plainify }}</p>
+          {{- end -}}
+          <p class="posts-date">{{ .Date.Format "02 Jan 2006" }}</p>
+        </article>
+      {{- end -}}
+    </div>
+  </section>
   {{- end -}}
 </div>
 
@@ -108,14 +109,27 @@
   }
 
   .posts-title {
-    font-size: 1.05rem;
-    font-weight: 600;
+    font-size: 1.15rem;
+    font-weight: 700;
   }
 
   .posts-summary {
     margin-top: 0.25rem;
     font-size: 0.9rem;
   }
+
+  .posts-date {
+    margin-top: 0.2rem;
+    font-size: 0.75rem;
+    color: rgba(15, 23, 42, 0.55);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .posts-date {
+      color: rgba(226, 232, 240, 0.6);
+    }
+  }
 </style>
 
 <script src="{{ "posts-filter.js" | relURL }}" defer></script>
+<script src="{{ "nav-toggle.js" | relURL }}" defer></script>

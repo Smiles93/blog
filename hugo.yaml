@@ -44,7 +44,7 @@ params:
 
   # Display the last modification date
   displayUpdatedDate: true
-  dateFormat: "15 Oct 2023"
+  dateFormat: "02 Jan 2006"
 
   navbar:
     displayTitle: true
