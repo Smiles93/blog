@@ -18,16 +18,28 @@
     const toggle = tryFindToggle();
     const postsLink = tryFindPostsLink();
     if (!toggle || !postsLink) return false;
+    if (toggle.dataset.navMoved === "true") return true;
 
     const postsItem = postsLink.closest("li") || postsLink.parentElement;
-    const toggleItem = toggle.closest("li") || toggle.parentElement;
-    if (!postsItem || !toggleItem) {
+    if (!postsItem) {
       postsLink.after(toggle);
+      toggle.dataset.navMoved = "true";
       return true;
     }
 
-    if (toggleItem === postsItem.nextSibling) return true;
-    postsItem.after(toggleItem);
+    const oldWrapper = toggle.closest("li");
+    const newItem = document.createElement("li");
+    newItem.className = postsItem.className || "";
+    newItem.style.display = "flex";
+    newItem.style.alignItems = "center";
+    newItem.appendChild(toggle);
+    postsItem.after(newItem);
+    toggle.dataset.navMoved = "true";
+
+    if (oldWrapper && oldWrapper !== newItem) {
+      oldWrapper.remove();
+    }
+
     return true;
   };
 
