@@ -50,19 +50,32 @@
         {{- else -}}
           {{- $active := or ($currentPage.HasMenuCurrent "main" .) ($currentPage.IsMenuCurrent "main" .) -}}
           {{- $activeClass := cond $active "hx-font-medium" "hx-text-gray-600 hover:hx-text-gray-800 dark:hx-text-gray-400 dark:hover:hx-text-gray-200" -}}
+          {{- $linkClassBase := "hx-text-sm contrast-more:hx-text-gray-700 contrast-more:dark:hx-text-gray-100 hx-relative hx-hidden hx-whitespace-nowrap hx-p-2 md:hx-inline-block" -}}
+          {{- $linkClassDefault := printf "%s -hx-ml-2" $linkClassBase -}}
           {{- if eq .Name "Posts" -}}
-            <span class="hx-hidden md:hx-inline-flex hx-items-center">
-              {{- partial "theme-toggle.html" (dict "hideLabel" true "Site" $currentPage.Site) -}}
+            <span class="hx-inline-flex hx-items-center hx-gap-1">
+              <span class="hx-inline-flex hx-items-center">
+                {{- partial "theme-toggle.html" (dict "hideLabel" true "Site" $currentPage.Site) -}}
+              </span>
+              <a
+                title="{{ or (T .Identifier) .Name | safeHTML }}"
+                href="{{ $link }}"
+                {{ if $external }}target="_blank" rel="noreferrer"{{ end }}
+                class="{{ $linkClassBase }} {{ $activeClass }}"
+              >
+                <span class="hx-text-center">{{ or (T .Identifier) .Name | safeHTML }}</span>
+              </a>
             </span>
+          {{- else -}}
+            <a
+              title="{{ or (T .Identifier) .Name | safeHTML }}"
+              href="{{ $link }}"
+              {{ if $external }}target="_blank" rel="noreferrer"{{ end }}
+              class="{{ $linkClassDefault }} {{ $activeClass }}"
+            >
+              <span class="hx-text-center">{{ or (T .Identifier) .Name | safeHTML }}</span>
+            </a>
           {{- end -}}
-          <a
-            title="{{ or (T .Identifier) .Name | safeHTML }}"
-            href="{{ $link }}"
-            {{ if $external }}target="_blank" rel="noreferrer"{{ end }}
-            class="hx-text-sm contrast-more:hx-text-gray-700 contrast-more:dark:hx-text-gray-100 hx-relative -hx-ml-2 hx-hidden hx-whitespace-nowrap hx-p-2 md:hx-inline-block {{ $activeClass }}"
-          >
-            <span class="hx-text-center">{{ or (T .Identifier) .Name | safeHTML }}</span>
-          </a>
         {{- end -}}
       {{- end -}}
     {{- end -}}

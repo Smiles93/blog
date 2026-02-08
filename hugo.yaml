@@ -40,7 +40,7 @@ params:
   theme:
     # light | dark | system
     default: system
-    displayToggle: true
+    displayToggle: false
 
   # Display the last modification date
   displayUpdatedDate: true
