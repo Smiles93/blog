@@ -1,12 +1,6 @@
 (() => {
   const tryFindToggle = () => {
-    return (
-      document.querySelector("[data-theme-toggle]") ||
-      document.querySelector("button[aria-label*=\"theme\" i]") ||
-      document.querySelector("button[aria-label*=\"dark\" i]") ||
-      document.querySelector("button[aria-label*=\"light\" i]") ||
-      document.querySelector("#theme-toggle")
-    );
+    return document.querySelector("footer .theme-toggle");
   };
 
   const tryFindPostsLink = () => {
@@ -20,24 +14,25 @@
     if (!toggle || !postsLink) return false;
     if (toggle.dataset.navMoved === "true") return true;
 
-    const postsItem = postsLink.closest("li") || postsLink.parentElement;
-    if (!postsItem) {
-      postsLink.after(toggle);
-      toggle.dataset.navMoved = "true";
-      return true;
-    }
+    const nav = postsLink.closest("nav");
+    if (!nav) return false;
 
-    const oldWrapper = toggle.closest("li");
-    const newItem = document.createElement("li");
-    newItem.className = postsItem.className || "";
-    newItem.style.display = "flex";
-    newItem.style.alignItems = "center";
-    newItem.appendChild(toggle);
-    postsItem.after(newItem);
+    const oldParent = toggle.parentElement;
+    toggle.classList.remove("hx-h-7", "hx-text-xs", "hx-text-left", "hx-px-2");
+    toggle.classList.add(
+      "hx-text-sm",
+      "hx-whitespace-nowrap",
+      "hx-p-2",
+      "hx-items-center",
+      "md:hx-inline-flex",
+      "hx-hidden"
+    );
+
     toggle.dataset.navMoved = "true";
+    postsLink.after(toggle);
 
-    if (oldWrapper && oldWrapper !== newItem) {
-      oldWrapper.remove();
+    if (oldParent && oldParent.children.length === 0) {
+      oldParent.remove();
     }
 
     return true;
